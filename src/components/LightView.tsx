@@ -4,6 +4,7 @@ import { PALETTE } from '../data/palette';
 import { adjustColor } from '../lib/color';
 import { keepScreenAwake } from '../lib/wakeLock';
 import { Slider } from './Slider';
+import { CameraPanel } from './CameraPanel';
 
 interface LightViewProps {
   initial: LightSettings;
@@ -24,6 +25,7 @@ export function LightView({ initial, fullscreen, onChange, onClose }: LightViewP
   const [settings, setSettings] = useState<LightSettings>(initial);
   const [controlsVisible, setControlsVisible] = useState(true);
   const [hintVisible, setHintVisible] = useState(true);
+  const [cameraOn, setCameraOn] = useState(false);
 
   const update = (patch: Partial<LightSettings>) => {
     setSettings((s) => {
@@ -47,27 +49,65 @@ export function LightView({ initial, fullscreen, onChange, onClose }: LightViewP
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === ' ' && e.target === document.body) {
+      if (e.key === 'Escape') {
+        if (cameraOn) setCameraOn(false);
+        else onClose();
+      } else if (cameraOn) {
+        return;
+      } else if (e.key === ' ' && e.target === document.body) {
         e.preventDefault();
         setControlsVisible((v) => !v);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
+  }, [onClose, cameraOn]);
 
   const stop = (e: React.SyntheticEvent) => e.stopPropagation();
 
   return (
     <div
-      className={`light ${controlsVisible ? '' : 'light--clean'}`}
+      className={`light ${controlsVisible && !cameraOn ? '' : 'light--clean'} ${cameraOn ? 'light--camera' : ''}`}
       style={{ background: displayColor }}
-      onClick={() => setControlsVisible((v) => !v)}
+      onClick={() => !cameraOn && setControlsVisible((v) => !v)}
       role="application"
       aria-label={`${settings.name} light. Tap to ${controlsVisible ? 'hide' : 'show'} controls.`}
     >
+      {cameraOn && (
+        <CameraPanel
+          intensity={settings.intensity}
+          onIntensityChange={(v) => update({ intensity: v })}
+          onClose={() => setCameraOn(false)}
+        />
+      )}
+
+      {!cameraOn && (
+        <button
+          type="button"
+          className="light__camera"
+          onClick={(e) => {
+            stop(e);
+            setCameraOn(true);
+            setHintVisible(false);
+          }}
+          aria-label="Open camera to take a photo with this light"
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path
+              d="M4 8h3l2-3h6l2 3h3v11H4z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinejoin="round"
+            />
+            <circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" strokeWidth="2" />
+          </svg>
+          <span>Camera</span>
+        </button>
+      )}
+
       <button
+        hidden={cameraOn}
         type="button"
         className="light__close"
         onClick={(e) => {
@@ -82,7 +122,7 @@ export function LightView({ initial, fullscreen, onChange, onClose }: LightViewP
         <span>Close</span>
       </button>
 
-      {hintVisible && (
+      {hintVisible && !cameraOn && (
         <div className="light__hint" role="status" onClick={stop}>
           <strong>Tip:</strong> turn your device brightness up for a stronger light.
           {fullscreen === false && <> Full-screen isn't available here, so the light fills the window instead.</>}
@@ -94,7 +134,8 @@ export function LightView({ initial, fullscreen, onChange, onClose }: LightViewP
       <section
         className="light__panel"
         aria-label="Light controls"
-        aria-hidden={!controlsVisible}
+        aria-hidden={!controlsVisible || cameraOn}
+        hidden={cameraOn}
         onClick={stop}
       >
         <div className="light__title">
