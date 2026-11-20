@@ -3,7 +3,7 @@ export interface Scene {
   name: string;
   emoji: string;
   description: string;
-  /** Preset ids from PALETTE, best match first. */
+  /** Preset ids from PALETTE, ordered for exploration. */
   colorIds: string[];
   /** Suggested starting intensity, 0.05–1. */
   intensity: number;
@@ -13,56 +13,38 @@ export interface Scene {
 
 export const SCENES: Scene[] = [
   {
-    id: 'selfie',
-    name: 'Selfie',
-    emoji: '🤳',
-    description: 'Soft, flattering front light that evens out skin tone and adds a catchlight to the eyes.',
-    colorIds: ['warm-white', 'soft-pink', 'peach'],
-    intensity: 1,
-    warmth: 0.15,
-  },
-  {
-    id: 'makeup',
-    name: 'Makeup',
-    emoji: '💄',
-    description: 'Neutral, daylight-like light so foundation and lipstick shades look true to life.',
-    colorIds: ['cool-white', 'warm-white'],
-    intensity: 1,
+    id: 'dinner-glow',
+    name: 'Dinner Glow',
+    emoji: '🕯️',
+    description: 'A warm starting point for dinner portraits. Adjust the glow while keeping the room’s atmosphere.',
+    colorIds: ['warm-white', 'peach', 'soft-pink'],
+    intensity: 0.8,
     warmth: 0,
   },
   {
-    id: 'video-call',
-    name: 'Video Call',
-    emoji: '💻',
-    description: 'Gentle warm key light that lifts your face out of shadow without glare on glasses.',
-    colorIds: ['warm-white', 'peach'],
+    id: 'soft-pink',
+    name: 'Soft Pink',
+    emoji: '🌸',
+    description: 'Try a pink tint for a softer mood. Compare the colours in the camera preview.',
+    colorIds: ['soft-pink', 'rose', 'peach'],
     intensity: 0.8,
-    warmth: 0.25,
+    warmth: 0,
   },
   {
-    id: 'product-photo',
-    name: 'Product Photo',
-    emoji: '📦',
-    description: 'Clean white for accurate colour, or a bold hue as a rim light to make objects pop.',
-    colorIds: ['cool-white', 'cyan', 'violet'],
-    intensity: 1,
-    warmth: -0.1,
-  },
-  {
-    id: 'warm-evening',
-    name: 'Warm Evening',
-    emoji: '🌇',
-    description: 'Dim, candle-like glow that is easy on the eyes and sets a cosy mood.',
-    colorIds: ['amber', 'orange', 'peach'],
-    intensity: 0.45,
-    warmth: 0.6,
+    id: 'cool-mood',
+    name: 'Cool Mood',
+    emoji: '🌙',
+    description: 'Explore cooler tones for a different mood. Start subtle and adjust to your surroundings.',
+    colorIds: ['cool-white', 'lavender', 'sky-blue'],
+    intensity: 0.8,
+    warmth: 0,
   },
   {
     id: 'neon-night',
     name: 'Neon Night',
     emoji: '🌃',
-    description: 'Saturated accent light for moody portraits and creative clips.',
-    colorIds: ['rose', 'indigo', 'cyan'],
+    description: 'Try a bold colour for expressive night portraits. Move the light to experiment with shadows.',
+    colorIds: ['rose', 'cyan', 'violet'],
     intensity: 1,
     warmth: 0,
   },

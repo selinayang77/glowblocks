@@ -98,8 +98,11 @@ export default function App() {
           <span style={{ background: '#B9F23C' }} />
         </div>
         <div>
-          <h1>GlowBlocks</h1>
-          <p className="muted">Tap a colour to turn your screen into a fill light.</p>
+          <p className="app__brand">GlowBlocks</p>
+          <h1>Your screen. Your light. Your mood.</h1>
+          <p className="app__intro muted">
+            Find your light for dinner photos, late-night selfies and low-light portraits. Pick a colour, adjust the glow, and open the selfie camera—or light a shot taken on another device.
+          </p>
         </div>
       </header>
 
@@ -112,27 +115,44 @@ export default function App() {
         </button>
       )}
 
-      <section aria-labelledby="colours-h">
-        <h2 id="colours-h" className="section-title">Colours</h2>
-        <SwatchGrid presets={PALETTE} onSelect={openPreset} />
-      </section>
-
       <section aria-labelledby="scenes-h">
-        <h2 id="scenes-h" className="section-title">Scenes</h2>
+        <h2 id="scenes-h" className="section-title">Find your mood</h2>
         <div className="scene-grid">
           {SCENES.map((s) => (
             <SceneCard key={s.id} scene={s} onSelect={openScene} />
           ))}
         </div>
+        <p className="scene-note muted">
+          Starting points, not fixed rules—your screen, surroundings and camera all affect the result.
+        </p>
+      </section>
+
+      <section aria-labelledby="colours-h">
+        <h2 id="colours-h" className="section-title">Explore all colours</h2>
+        <SwatchGrid presets={PALETTE} onSelect={openPreset} />
       </section>
 
       <section aria-labelledby="custom-h">
-        <h2 id="custom-h" className="section-title">Custom colour</h2>
+        <h2 id="custom-h" className="section-title">Make it yours</h2>
         <CustomColorPicker initialHex={recent[0] ?? '#FFB6A0'} recent={recent} onOpen={openCustom} />
       </section>
 
+      <section aria-labelledby="shoot-h">
+        <h2 id="shoot-h" className="section-title">Two ways to shoot</h2>
+        <div className="shoot-grid">
+          <article className="shoot-tip">
+            <h3>Selfie with your glow</h3>
+            <p>Choose a colour, tap Camera, and frame your shot. The screen around the preview provides the light.</p>
+          </article>
+          <article className="shoot-tip">
+            <h3>Light another camera</h3>
+            <p>Keep GlowBlocks open on one device and take the photo with another. Try moving the light closer or changing its angle.</p>
+          </article>
+        </div>
+      </section>
+
       <footer className="app__footer muted">
-        For the strongest light, raise your device brightness. GlowBlocks only changes the colour shown on screen.
+        For a stronger glow, raise your device’s screen brightness. The intensity slider adjusts the displayed colour, not your device’s brightness setting.
       </footer>
     </div>
   );
