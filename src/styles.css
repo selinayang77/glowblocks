@@ -36,16 +36,17 @@ h1, h2, h3 { margin: 0; }
   flex-direction: column;
   gap: 32px;
 }
-.app__header { display: flex; align-items: center; gap: 14px; }
+.app__header { display: flex; align-items: flex-start; gap: 14px; }
 .app__header h1 { font-size: 1.75rem; letter-spacing: -0.02em; }
-.app__header p { margin: 4px 0 0; }
+.app__brand { margin: 0 0 8px; font-size: 1rem; font-weight: 700; }
+.app__intro { max-width: 680px; margin: 12px 0 0; line-height: 1.6; }
 .app__footer { font-size: 0.85rem; text-align: center; line-height: 1.5; }
 .logo {
-  display: grid; grid-template-columns: repeat(2, 18px); gap: 4px; flex-shrink: 0;
+  display: grid; grid-template-columns: repeat(2, 18px); gap: 4px; flex-shrink: 0; margin-top: 2px;
 }
 .logo span { width: 18px; height: 18px; border-radius: 5px; }
 .section-title {
-  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
+  font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.12em;
   color: var(--muted); margin-bottom: 12px; font-weight: 600;
 }
 
@@ -95,7 +96,13 @@ h1, h2, h3 { margin: 0; }
 /* ---------- Scenes ---------- */
 .scene-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
 @media (min-width: 640px) { .scene-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 980px) { .scene-grid { grid-template-columns: repeat(3, 1fr); } }
+.scene-note { margin: 12px 0 0; font-size: 0.875rem; line-height: 1.5; }
+
+/* ---------- Shooting tips ---------- */
+.shoot-grid { display: grid; gap: 20px; }
+@media (min-width: 640px) { .shoot-grid { grid-template-columns: repeat(2, 1fr); } }
+.shoot-tip h3 { font-size: 1rem; }
+.shoot-tip p { margin: 8px 0 0; color: var(--muted); line-height: 1.6; }
 
 .scene-card {
   background: var(--surface); border: 1px solid var(--border);

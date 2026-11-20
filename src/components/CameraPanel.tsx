@@ -89,14 +89,14 @@ export function CameraPanel({ intensity, onIntensityChange, onClose }: CameraPan
       if (r === 'shared') setMessage('Shared!');
     } catch {
       downloadPhoto(shot.file);
-      setMessage('Sharing failed, so the photo was downloaded instead.');
+      setMessage('Sharing failed. Download requested. Check your browser’s downloads.');
     }
   };
 
   const download = () => {
     if (!shot) return;
     downloadPhoto(shot.file);
-    setMessage('Photo downloaded.');
+    setMessage('Download requested. Check your browser’s downloads.');
   };
 
   const nextTimer = () => setTimer((t) => TIMER_OPTIONS[(TIMER_OPTIONS.indexOf(t) + 1) % TIMER_OPTIONS.length]);
