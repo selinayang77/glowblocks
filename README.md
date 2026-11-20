@@ -1,5 +1,7 @@
 # GlowBlocks
 
+[Try GlowBlocks](https://selinayang77.github.io/glowblocks/)
+
 **Your screen. Your light. Your mood.**
 
 A mobile-first web app for screen-lit selfies and atmospheric portraits in low-light settings.
